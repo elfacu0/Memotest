@@ -1,37 +1,43 @@
 let cardsContainer = document.querySelector("#cards-container");
+let scoreContainer = document.querySelector("#score");
 let cardsUsed = [];
 let cards = [];
-let quantityOfCards = 6;
+let quantityOfCards = 4;
 let appenededCards = [];
 let lastCard = "";
 let cardsDiscovered = 0;
-let flippedCards = 0;
-let flippedCardsArray = [];
+let flippedCards = 0;  // flipped cards max 2
+let flippedCardsArray = []; 
 let playerTurn = true;
+let score = 0;
 cardsContainer.addEventListener("click", function (e) {
     if (playerTurn) {
-        console.log(e.path[3].id);
-        let actualCard = e.path[3].id;
         if (e.path[2].classList[0] == "flip-card-inner") {
+            let actualCard = e.path[3].id;
+            console.log(e.path[3].id);
             e.path[2].classList.add("flipcard");
             flippedCardsArray.push(e.path[2]);
-        }
-        if (actualCard == lastCard && flippedCardsArray[0] != flippedCardsArray[1]) {
-            removeCards(actualCard);
-        }
-        lastCard = actualCard;
-        flippedCards++;
-        if (flippedCards >= 2) {
-            playerTurn = false;
-            setTimeout(function () {
-                flippedCardsArray[0].classList.remove("flipcard");
-                flippedCardsArray[1].classList.remove("flipcard");
+            flippedCards++;
+            if (actualCard == lastCard && flippedCardsArray[0] != flippedCardsArray[1]) {
+                removeCards(actualCard);
+                score += 10;
+                updateScore();
                 flippedCards = 0;
                 flippedCardsArray = [];
-                actualCard = "";
-                lastCard = "";
-                playerTurn = true;
-            }, 1200);
+            }
+            if (flippedCards >= 2) {
+                playerTurn = false;
+                setTimeout(function () {
+                    flippedCardsArray[0].classList.remove("flipcard");
+                    flippedCardsArray[1].classList.remove("flipcard");
+                    flippedCards = 0;
+                    flippedCardsArray = [];
+                    actualCard = "";
+                    lastCard = "";
+                    playerTurn = true;
+                }, 1200);
+            }
+            lastCard = actualCard;
         }
     }
 });
@@ -66,7 +72,19 @@ function populateCards() {
     }
 }
 
-function addCards() {
+function addCards(actualscore = 0) {
+    cards = [];
+    cardsUsed = [];
+    appenededCards = [];
+    lastCard = '';
+    cardsDiscovered = 0;
+    flippedCards = 0;
+    flippedCardsArray = [];
+    playerTurn = true;
+    cardsContainer.innerHTML = "";
+    cardsRemoved = 0;
+    score = actualscore;
+    updateScore();
     populateCards();
 }
 
@@ -108,8 +126,19 @@ function removeCards(cardToRemove) {
                 cardsContainer.children[i].style.visibility = "hidden";
             }
         }
+        if (cardsRemoved == quantityOfCards) {
+            console.log("OYU WIN");
+            cards = [];
+            cardsUsed = [];
+            appenededCards = [];
+            score += 100;
+            updateScore();
+            addCards(score);
+        }
     }, 800);
-    if (cardsRemoved == quantityOfCards) {
-        console.log("OYU WIN");
-    }
+
+}
+
+function updateScore() {
+    scoreContainer.textContent = `Score: ${score}`;
 }

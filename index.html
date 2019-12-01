@@ -9,12 +9,20 @@
     <link rel="stylesheet" href="flip.css">
     <title>Memotest</title>
 </head>
+<style>
+    * {
+        background-color: gray;
+    }
+</style>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12 alert-primary">
-                <button>ASDA</button>
+            <div class="col-8 alert alert-dark">
+                <button onclick="addCards()" class="btn btn-primary">play</button>
+            </div>
+            <div class="col-4 alert alert-dark">
+                <span class="badge badge-secondary" style="font-size: 2rem;" id="score">Score: </span>
             </div>
             <div class="col-sm-12 align-content-center">
                 <div id="cards-container" class="row justify-content-around">
