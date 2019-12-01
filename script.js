@@ -1,20 +1,27 @@
 let cardsContainer = document.querySelector("#cards-container");
 let scoreContainer = document.querySelector("#score");
-let cardsUsed = [];
-let cards = [];
-let quantityOfCards = 4;
-let appenededCards = [];
+let quantityOfCardsContainer = document.querySelector("#cards");
+quantityOfCardsContainer.addEventListener("change",function(e){
+    if(this.value%2 == 0){
+        quantityOfCards = this.value;
+    }else{
+        quantityOfCards = (this.value%2)+this.value;
+    }
+})
+let cardsUsed = []; // to no use the same pokemon
+let cards = []; //all cards in use
+let quantityOfCards = 6; 
+let appenededCards = []; // used cards
 let lastCard = "";
-let cardsDiscovered = 0;
-let flippedCards = 0;  // flipped cards max 2
-let flippedCardsArray = []; 
+let cardsDiscovered = 0; //when this is the same as the quantity of cards means end of game
+let flippedCards = 0;  // flipped cards 0 when 2 and starts again
+let flippedCardsArray = [];  // flippedcards divs
 let playerTurn = true;
 let score = 0;
 cardsContainer.addEventListener("click", function (e) {
     if (playerTurn) {
         if (e.path[2].classList[0] == "flip-card-inner") {
             let actualCard = e.path[3].id;
-            console.log(e.path[3].id);
             e.path[2].classList.add("flipcard");
             flippedCardsArray.push(e.path[2]);
             flippedCards++;
@@ -54,7 +61,6 @@ function populateCards() {
     request.onload = function () {
         cardsContainer = document.querySelector("#cards-container");
         var pokemon = request.response;
-        console.log(pokemon.name);
         if (cardsUsed.includes(pokemon.name) == false) {
             cardsUsed.push(pokemon.name);
             cards.push(pokemon);
@@ -94,19 +100,15 @@ function appendCards() {
         if (appenededCards[definepokemon].count < 2) {
             pokemon = cards[definepokemon];
             pokemon_src = pokemon.sprites.front_default;
-            // var img = document.createElement("img");
-            // img.src = pokemon_src;
-            // img.dataset.name = pokemon.name;
-            // cardsContainer.appendChild(img);
             let ad = document.createElement("div");
             ad.id = pokemon.name;
             ad.innerHTML += `<div class="flip-card" id="${pokemon.name}">
             <div class="flip-card-inner">
-              <div class="flip-card-front" style="width:300px;height:300px;">
+              <div class="flip-card-front" style="width:200px;height:200px;">
                 <img src="https://png2.cleanpng.com/sh/7fbfca594102e35be229f98185020a25/L0KzQYm3UsE1N514fZH0aYP2gLBuTf9zb5JzgexqdHnyfn7qiPltbF5qhuZucoD1ecTsTgJme5D6itVuLYDvcbB1if5oNZ5mReV6dXH1dX76iPFxbV5ohNt5YYL3g368gcg1QZc9StVvYkLnR3ACU8g4PGk3SKMAMUi5RIK3UsY5PWE8RuJ3Zx==/kisspng-organization-child-enterprise-resource-planning-ma-square-shape-cliparts-5a849f82cfb2d7.9387482015186410268507.png" alt="block" style="width:200px;height:200px;">
               </div>
               <div class="flip-card-back">
-                <img src="${pokemon_src}" alt="pokemon.name" style="width:250px;height:250px;">
+                <img src="${pokemon_src}" alt="pokemon.name" style="width:200px;height:200px;">
               </div>
             </div>
           </div>`;
