@@ -1,2 +1,4 @@
-# memotest
+# Memotest
+
+use npm install
  
