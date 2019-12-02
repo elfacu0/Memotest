@@ -118,7 +118,7 @@ function appendCards() {
         if (appenededCards[definepokemon].count < 2) {
             pokemon = cards[definepokemon];
             pokemon_src = pokemon.sprites.front_default;
-            if (Math.random() <= 0.05) {
+            if (Math.random() <= 0.005) {
                 pokemon_src = pokemon.sprites.front_shiny;
             }
             let ad = document.createElement("div");
