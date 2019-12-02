@@ -1,16 +1,18 @@
 let cardsContainer = document.querySelector("#cards-container");
 let scoreContainer = document.querySelector("#score");
 let quantityOfCardsContainer = document.querySelector("#cards");
-quantityOfCardsContainer.addEventListener("change",function(e){
-    if(this.value%2 == 0){
+let timeContainer = document.querySelector("#timer");
+let failsContainer = document.querySelector("#fails");
+quantityOfCardsContainer.addEventListener("change", function (e) {
+    if (this.value % 2 == 0) {
         quantityOfCards = this.value;
-    }else{
-        quantityOfCards = (this.value%2)+this.value;
+    } else {
+        quantityOfCards = (this.value % 2) + this.value;
     }
 })
 let cardsUsed = []; // to no use the same pokemon
 let cards = []; //all cards in use
-let quantityOfCards = 6; 
+let quantityOfCards = 6;
 let appenededCards = []; // used cards
 let lastCard = "";
 let cardsDiscovered = 0; //when this is the same as the quantity of cards means end of game
@@ -18,8 +20,16 @@ let flippedCards = 0;  // flipped cards 0 when 2 and starts again
 let flippedCardsArray = [];  // flippedcards divs
 let playerTurn = true;
 let score = 0;
+let initialTime = 0;
+let actualTime = 0;
+let fails = 0;
+let firstClick = false;
 cardsContainer.addEventListener("click", function (e) {
     if (playerTurn) {
+        if(firstClick == false){
+            setTime();
+        }
+        firstClick = true;
         if (e.path[2].classList[0] == "flip-card-inner") {
             let actualCard = e.path[3].id;
             e.path[2].classList.add("flipcard");
@@ -34,6 +44,8 @@ cardsContainer.addEventListener("click", function (e) {
             }
             if (flippedCards >= 2) {
                 playerTurn = false;
+                fails++;
+                failsContainer.innerText = `Fails: ${fails}`;
                 setTimeout(function () {
                     flippedCardsArray[0].classList.remove("flipcard");
                     flippedCardsArray[1].classList.remove("flipcard");
@@ -90,6 +102,9 @@ function addCards(actualscore = 0) {
     cardsContainer.innerHTML = "";
     cardsRemoved = 0;
     score = actualscore;
+    if(actualscore = 0){
+        firstClick = false;
+    }
     updateScore();
     populateCards();
 }
@@ -144,3 +159,21 @@ function removeCards(cardToRemove) {
 function updateScore() {
     scoreContainer.textContent = `Score: ${score}`;
 }
+
+function setTime() {
+        let d = new Date();
+        initialTime = d.getTime();
+        actualTime = 0;
+        fails = 0;
+        let timer = setInterval(myTimer, 1000);
+}
+
+function myTimer() {
+    var d = new Date();
+    var t = d.getTime();
+    timeContainer.innerText = `Time: ${Math.floor((t-initialTime)/1000)}`;
+  }
+  
+  function stopTimer() {
+    clearInterval(timer);
+  }
