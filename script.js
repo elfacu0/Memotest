@@ -102,8 +102,11 @@ function addCards(actualscore = 0) {
     cardsContainer.innerHTML = "";
     cardsRemoved = 0;
     score = actualscore;
-    if (actualscore = 0) {
+    if (actualscore == 0) {
         firstClick = false;
+        stopTimer();
+        fails = 0;
+        timer = "";
     }
     updateScore();
     populateCards();
@@ -162,13 +165,12 @@ function removeCards(cardToRemove) {
 function updateScore() {
     scoreContainer.textContent = `Score: ${score}`;
 }
-
+let timer;
 function setTime() {
     let d = new Date();
     initialTime = d.getTime();
     actualTime = 0;
-    fails = 0;
-    let timer = setInterval(myTimer, 1000);
+    timer = setInterval(myTimer, 1000);
 }
 
 function myTimer() {
