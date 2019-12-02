@@ -12,7 +12,7 @@ quantityOfCardsContainer.addEventListener("change", function (e) {
 })
 let cardsUsed = []; // to no use the same pokemon
 let cards = []; //all cards in use
-let quantityOfCards = 6;
+let quantityOfCards = quantityOfCardsContainer.value;
 let appenededCards = []; // used cards
 let lastCard = "";
 let cardsDiscovered = 0; //when this is the same as the quantity of cards means end of game
