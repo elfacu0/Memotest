@@ -26,7 +26,7 @@ let fails = 0;
 let firstClick = false;
 cardsContainer.addEventListener("click", function (e) {
     if (playerTurn) {
-        if(firstClick == false){
+        if (firstClick == false) {
             setTime();
         }
         firstClick = true;
@@ -102,7 +102,7 @@ function addCards(actualscore = 0) {
     cardsContainer.innerHTML = "";
     cardsRemoved = 0;
     score = actualscore;
-    if(actualscore = 0){
+    if (actualscore = 0) {
         firstClick = false;
     }
     updateScore();
@@ -115,6 +115,9 @@ function appendCards() {
         if (appenededCards[definepokemon].count < 2) {
             pokemon = cards[definepokemon];
             pokemon_src = pokemon.sprites.front_default;
+            if (Math.random() <= 0.05) {
+                pokemon_src = pokemon.sprites.front_shiny;
+            }
             let ad = document.createElement("div");
             ad.id = pokemon.name;
             ad.innerHTML += `<div class="flip-card" id="${pokemon.name}">
@@ -161,19 +164,19 @@ function updateScore() {
 }
 
 function setTime() {
-        let d = new Date();
-        initialTime = d.getTime();
-        actualTime = 0;
-        fails = 0;
-        let timer = setInterval(myTimer, 1000);
+    let d = new Date();
+    initialTime = d.getTime();
+    actualTime = 0;
+    fails = 0;
+    let timer = setInterval(myTimer, 1000);
 }
 
 function myTimer() {
     var d = new Date();
     var t = d.getTime();
-    timeContainer.innerText = `Time: ${Math.floor((t-initialTime)/1000)}`;
-  }
-  
-  function stopTimer() {
+    timeContainer.innerText = `Time: ${Math.floor((t - initialTime) / 1000)}`;
+}
+
+function stopTimer() {
     clearInterval(timer);
-  }
+}
