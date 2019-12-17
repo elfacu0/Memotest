@@ -126,7 +126,7 @@ function appendCards() {
             ad.innerHTML += `<div class="flip-card" id="${pokemon.name}">
             <div class="flip-card-inner">
               <div class="flip-card-front" style="width:200px;height:200px;">
-                <img src="https://png2.cleanpng.com/sh/7fbfca594102e35be229f98185020a25/L0KzQYm3UsE1N514fZH0aYP2gLBuTf9zb5JzgexqdHnyfn7qiPltbF5qhuZucoD1ecTsTgJme5D6itVuLYDvcbB1if5oNZ5mReV6dXH1dX76iPFxbV5ohNt5YYL3g368gcg1QZc9StVvYkLnR3ACU8g4PGk3SKMAMUi5RIK3UsY5PWE8RuJ3Zx==/kisspng-organization-child-enterprise-resource-planning-ma-square-shape-cliparts-5a849f82cfb2d7.9387482015186410268507.png" alt="block" style="width:200px;height:200px;">
+                <img src="http://www.clker.com/cliparts/d/n/H/M/i/F/orange-square-md.png" alt="block" style="width:200px;height:200px;">
               </div>
               <div class="flip-card-back">
                 <img src="${pokemon_src}" alt="pokemon.name" style="width:200px;height:200px;">
